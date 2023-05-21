@@ -9,28 +9,36 @@ handler = logging.StreamHandler(stdout)
 
 
 def _sleep_time(
-        start_sleep_time: float,
-        border_sleep_time: float,
-        factor: int,
-        attempt: int,
-        logger: logging.Logger
-    ) -> float:
+    start_sleep_time: float,
+    border_sleep_time: float,
+    factor: int,
+    attempt: int,
+    logger: logging.Logger,
+) -> float:
     try:
-        sleep_time = random.uniform(start_sleep_time, start_sleep_time * factor) * factor ** attempt
+        sleep_time = (
+            random.uniform(start_sleep_time, start_sleep_time * factor)
+            * factor ** attempt
+        )
     except OverflowError:
-        logger.warning('Sleep_time will be set to border_sleep_time')
+        logger.warning("Sleep_time will be set to border_sleep_time")
         sleep_time = border_sleep_time
     return min(border_sleep_time, sleep_time)
 
 
 def backoff(
-        start_sleep_time=0.1,
-        border_sleep_time=30,
-        factor=2,
-        tries=20,
-        logger=logging_logger,
-        logger_formatter=logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
-    ):
+    start_sleep_time=0.1,
+    border_sleep_time=30,
+    factor=2,
+    tries=20,
+    logger=logging_logger,
+    logger_formatter=logging.Formatter(
+        "%(name)s %(asctime)s %(levelname)s %(message)s"
+    ),
+):
+    """
+    backoff-декоратор для отказоустойчивости сервиса при сбоях подключения к БД
+    """
 
     def decorator(target):
         @wraps(target)
@@ -40,16 +48,20 @@ def backoff(
             available_tries = tries
             attempt = 0
             while available_tries:
-                sleep_time = _sleep_time(start_sleep_time, border_sleep_time, factor, attempt, logger)
+                sleep_time = _sleep_time(
+                    start_sleep_time, border_sleep_time, factor, attempt, logger
+                )
                 try:
                     ret = target(*args, **kwargs)
                 except Exception as e:
                     available_tries -= 1
                     attempt += 1
-                    logger.error(f'Exception is catched {e}')
-                    logger.warning(f'Wait fo {sleep_time} seconds and try again')
+                    logger.error(f"Exception is catched {e}")
+                    logger.warning(f"Wait fo {sleep_time} seconds and try again")
                     sleep(sleep_time)
                 else:
                     return ret
+
         return retry
+
     return decorator

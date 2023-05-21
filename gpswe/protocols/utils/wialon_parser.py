@@ -1,12 +1,19 @@
 def login_parser(data: list):
+    """
+    Парсер пакета логина Wialon для модели WialonLogin
+    """
     return {
         "protocol_version": data[0],
         "imei": data[1],
         "password": data[2],
-        "crc16": data[3]
+        "crc16": data[3],
     }
 
+
 def cut_parser(data: list, imei: str):
+    """
+    Парсер сокращенного пакета Wialon для модели WialonCutData
+    """
     return {
         "imei": imei,
         "date": data[0],
@@ -19,10 +26,14 @@ def cut_parser(data: list, imei: str):
         "course": data[7],
         "alt": data[8],
         "sats": data[9],
-        "crc16": data[10]
+        "crc16": data[10],
     }
 
+
 def extend_parser(data: list, imei: str):
+    """
+    Парсер расширенного пакета Wialon для модели WialonExtendData
+    """
     return {
         "imei": imei,
         "date": data[0],
@@ -41,5 +52,5 @@ def extend_parser(data: list, imei: str):
         "adc": data[13],
         "lbutton": data[14],
         "params": data[15],
-        "crc16": data[16]
+        "crc16": data[16],
     }

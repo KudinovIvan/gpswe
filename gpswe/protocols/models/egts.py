@@ -7,6 +7,7 @@ class EGTSData(BaseModel):
     """
     Пакет с данными с EGTS
     """
+
     oid: Optional[int]
     date: Optional[datetime.date]
     time: Optional[datetime.time]

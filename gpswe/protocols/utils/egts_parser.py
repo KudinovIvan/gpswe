@@ -1,4 +1,7 @@
 def egts_parser(data: list):
+    """
+    Парсер пакета EGTS для модели EGTSData
+    """
     return {
         "oid": data[0],
         "date": data[1],
@@ -6,5 +9,5 @@ def egts_parser(data: list):
         "lat_deg": data[3],
         "long_deg": data[4],
         "speed": data[5],
-        "course": data[6]
+        "course": data[6],
     }

@@ -1,8 +1,4 @@
-.tox
-dist
-env
-.pypirc
-pyproject.toml
-requirements.txt
-.tests
+dist/
+env/
 .idea
+__pycache__

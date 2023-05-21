@@ -8,6 +8,7 @@ class WialonLogin(BaseModel):
     Пакет логина:
     Предназначен для авторизации устройства на сервере
     """
+
     imei: str
     protocol_version: str
     password: Optional[str]
@@ -19,6 +20,7 @@ class WialonCutData(BaseModel):
     Сокращенный пакет с данными:
     Содержит только навигационные данные
     """
+
     imei: Optional[str]
     date: Union[str, datetime.date, None]
     time: Union[str, datetime.time, None]
@@ -38,6 +40,7 @@ class WialonExtendData(WialonCutData):
     Расширенный пакет с данными:
     Содержит дополнительные структуры данных
     """
+
     hdop: Union[str, float, None]
     inputs: Union[str, int, None]
     outputs: Union[str, int, None]

@@ -6,6 +6,7 @@ class ServerSettings(BaseModel):
     """
     Пользовательские настройки библиотеки
     """
+
     BUFF_SIZE: Optional[int]
     HOST: Optional[str]
     PORT: Optional[int]
@@ -17,8 +18,12 @@ class ServerSettings(BaseModel):
     POSTGRES_HOST: Optional[str]
     POSTGRES_PORT: Optional[str]
 
-
 settings = ServerSettings()
+
+"""
+Инициализация настроек для тестирования
+"""
+
 settings.BUFF_SIZE = 8192
 settings.HOST = "0.0.0.0"
 settings.PORT = 10500
