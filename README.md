@@ -1,4 +1,4 @@
-# club_house_api
+# gpswe
 
 ![PyPI](https://img.shields.io/pypi/v/clubhouse_api?color=orange) 
 ![Python 3.7, 3.8, 3.9, 3.10](https://img.shields.io/pypi/pyversions/clubhouse?color=blueviolet) 
